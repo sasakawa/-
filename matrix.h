@@ -3,7 +3,7 @@
 //拡大・縮小
 void scaling(double x,double y,double **matrix){
     int i,j;
-    
+
     printf("scaling ...\n");
     for(i=0;i<3;i++){
         for(j=0;j<3;j++){
@@ -13,7 +13,7 @@ void scaling(double x,double y,double **matrix){
     matrix[0][0]=x;
     matrix[1][1]=y;
     matrix[2][2]=1;
-    
+
     printf("scaling end ...\n");
 }
 
@@ -23,7 +23,7 @@ void rotation(double ang,double **matrix){
   double rad;
 
   rad=ang*M_PI/180;
-  
+
   for(i=0;i<3;i++){
     for(j=0;j<3;j++){
       matrix[i][j]=0;
@@ -38,13 +38,43 @@ void rotation(double ang,double **matrix){
 }
 
 //せん断
+void skew_y(double ang,double **matrix){
+  int i,j;
+  double rad;
 
+  rad=ang*M_PI/180;
+
+  printf("skew start ...\n");
+  for(i=0;i<3;i++){
+      for(j=0;j<3;j++){
+          matrix[i][j]=0;
+      }
+  }
+  matrix[1][0]=tan(rad);
+  printf("skew end ...\n");
+}
+
+void skew_x(double ang,double **matrix){
+  int i,j;
+  double rad;
+
+  rad=ang*M_PI/180;
+
+  printf("skew start ...\n");
+  for(i=0;i<3;i++){
+      for(j=0;j<3;j++){
+          matrix[i][j]=0;
+      }
+  }
+  matrix[0][1]=tan(rad);
+  printf("skew end ...\n");
+}
 
 //逆行列の計算関数
 void inverse(double **a,double **inv_a){
     double buf;
     int i,j,k,n=3;
-    
+
     //matrixの確認表示
     printf("matrix\n");
     for(i=0;i<n;i++){
@@ -52,7 +82,7 @@ void inverse(double **a,double **inv_a){
             printf("[%.2lf]",a[i][j]);
         }printf("\n");
     }
-    
+
     //単位行列を作る
     for(i=0;i<n;i++){
         for(j=0;j<n;j++){
@@ -76,7 +106,7 @@ void inverse(double **a,double **inv_a){
             }
         }
     }
-    
+
     //計算結果である逆行列の表示
     printf("inverse\n");
     for(i=0;i<n;i++){
@@ -85,6 +115,3 @@ void inverse(double **a,double **inv_a){
         }printf("\n");
     }
 }
-
-
- 
